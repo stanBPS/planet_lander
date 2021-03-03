@@ -1,0 +1,40 @@
+@font-face {
+  font-family: AstroSpace;
+  src: url(../font/AstroSpace-eZ2Bg.ttf);
+}
+
+@font-face {
+  font-family: Atari;
+  src: url(../font/atariclassic.ttf);
+}
+
+@font-face {
+  font-family: spaceranger;
+  src: url(../font/SpaceRanger-EMJl\ \(1\).otf);
+}
+
+*{
+  font-family: spaceranger;
+  font-size: 20px;
+}
+section{
+  margin: 0 auto;
+  flex-direction: column;
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+}
+
+section img{
+  margin-bottom: 5px;
+}
+
+h1{
+  text-align: center;
+}
+
+.img_activity{
+  display: block;
+  margin-left: 150px;
+}

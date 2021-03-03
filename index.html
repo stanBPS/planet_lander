@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Lander Game</title>
+     <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--prism CSS-->
+    <link  type="text/css" href="css/prism.css" rel="stylesheet" /> 
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/png" href="image/logo_game.png" />
+
+   
+
+  </head>
+  <body>
+
+    <header>
+      <nav id="">
+        <div class="navbar-fixed">
+          <a href="#" class="brand-logo">PLANET LANDER</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down ">
+            <li><a href="#home">Accueil</a></li>
+            <li><a href="#features">Caracteristiques</a></li>
+            <li><a href="#description">Description</a></li>
+            <li><a href="#screenshot">Capture d'ecran</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <ul id="mobile-demo" class="sidenav">
+      <li><a href="#home">Accueil</a></li>
+      <li><a href="#features">Caracteristiques</a></li>
+      <li><a href="#description">Description</a></li>
+      <li><a href="#screenshot">Capture d'ecran</a></li>
+    </ul>
+
+    <main>
+      <section id="home" class="scrollspy">
+        <h1>Projet Développement Application Mobile</h1>
+      
+        <h3>Bruneau Stanley</h3>
+        <h3>Ngoc Dang NGUYEN</h3>
+      </section>
+
+     
+
+      <div class="parallax-container">
+        <div class="parallax"><img src="image/pexels_francesco_ungar.jpg"  width="1080"></div>
+      </div>
+
+      <section id="description" class=" scrollspy">
+        <p>Nous avons decide de faire un jeu inspire de Lunar Lander un jeu Atari sortie en 1979.</p>
+        <img src="image/Lunar_Lander_Logo.jpg" width="700px">
+        <iframe width="700" height="400" src="https://www.youtube.com/embed/McAhSoAEbhM" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+      </iframe>
+        <p>Notre Version a nous est donc Planet Lander, on garde le principe de base de la version Atari mais au lieu de se poser sur des montagnes,
+          le joueur devra se poser sur des planetes.
+        </p>
+        <p>Le but du jeu est de se poser sur toutes les planetes pour gagner des points il peut jouer au temps qu'il veux le jeux se termine quand le lander se crash.</p>
+        <img src="image/bgmenu.png" width="700px">
+        <p>Pour remplacer le joystick et les boutons present sur le jeux d'arcade Atari nous avons decider d'utiliser des capteurs, trois pour etre precis</p>
+        <p >Les capteurs : 
+            <ul class="browser-default ">
+              <li ><b>Capteur de luminosite</b>: qui permet au lander d'accelerer en fonction de la quantite de lumiere recu</li>
+              <li ><b>Accelerometre</b>: pour permettre de changer la rotaion du lander en fonction des valeur recuperee</li>
+              <li ><b>Microphone:</b> permet de faire accelerer le lander aussi </li>
+            </ul>
+            On a aussi ajoutés la possibilite de faire accelerer le lander en faisant glisser son doigt sur l'ecran
+        </p>
+      </section>
+
+      <div class="parallax-container">
+        <div class="parallax"><img src="image/pexels_francesco_ungar.jpg"  width="1080"></div>
+      </div>
+
+      <section id="features" class="scrollspy">
+        <h1>Caracteristiques</h1>
+          Nous avons donc 4 activity:
+          <ul class="browser-default ">
+              <li>SplashScreenActivity: La page de chargement a l'ouverture du jeu<br>
+                <img class="img_activity" src="image/loading.png" width="500px"></li>
+              <li>MainActivity: La page de départ avec le bouton play<br> 
+                <img  class="img_activity" src="image/main.png" width="500px"></li>
+              <li>GameActivity: Le canvas du jeux <br>
+                <img  class="img_activity" src="image/game.png" width="500px"></li>
+              <li>GameOverParty: la page fin avec l'affichage du score<br>
+                <img  class="img_activity" src="image/end.png" width="500px"></li>
+          </ul>
+            
+            
+            
+            
+        <p>Pour utiliser les capteurs il faut le mettre en place</p>
+        <ul class="collapsible">
+          <li>
+              <div style="display: block;width: 800px;" class="collapsible-header">Montrer le code<i class="material-icons right">expand_more</i></div>
+              <div class="collapsible-body"> 
+      <pre><code class="language-java">
+        //Dans GameActivity.java
+        private SensorManager sm = null;
+
+            //Dans la methode onCreate
+            sm = (SensorManager) getSystemService(SENSOR_SERVICE);   
+            
+            // Dans la methode onSensorChanged
+            int sensor = event.sensor.getType();      
+      </code></pre>
+              </div>      
+          </li>
+      </ul>
+        <p>Code pour le capteur de la lumiere</p>
+        <p>On recupere les valeurs pour permettre l'acceleration du lander</p>
+        <ul class="collapsible">
+          <li>
+              <div style="display: block;width: 800px;" class="collapsible-header">Montrer le code<i class="material-icons right">expand_more</i></div>
+              <div class="collapsible-body"> 
+      <pre><code class="language-java">
+        //Dans GameActivity.java
+            Sensor lightSensor;
+
+            //Dans le methode onSensorChanged
+            if (sensor == Sensor.TYPE_LIGHT){
+              LuxBar.value  = event.values[0];
+              LuxBar.maxRange = lightSensor.getMaximumRange();
+              Log.d("TAG", "lux: "+LuxBar.value/LuxBar.maxRange+" .");
+            }
+            
+            //Dans la methode onResume
+            lightSensor = sm.getDefaultSensor(Sensor.TYPE_LIGHT);
+            sm.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+            //Dans la methode onStop
+            sm.unregisterListener(this, sm.getDefaultSensor(Sensor.TYPE_LIGHT));
+        //Dans 
+      </code></pre>
+              </div>      
+          </li>
+      </ul>
+      <p>Code pour accéléromètre</p>
+      <p>On recupere les valeurs pour permettre la rotation du lander</p>
+      <ul class="collapsible">
+        <li>
+            <div style="display: block;width: 800px;" class="collapsible-header">Montrer le code<i class="material-icons right">expand_more</i></div>
+            <div class="collapsible-body"> 
+    <pre><code class="language-java">
+      //Dans GameActivity.java
+          Sensor mMagneticField ;
+
+          //Dans le methode onSensorChanged
+          synchronized (this) {
+            if (sensor == Sensor.TYPE_ACCELEROMETER) {
+                float [] valuesAcc = event.values;
+                Lander.angle = valuesAcc[1]*10;
+                Lander.cos= Math.cos(Math.toRadians(Lander.angle));
+                Lander.sin=Math.sin(Math.toRadians(Lander.angle));
+                Log.d("TAG", "onSensorChanged: "+Lander.angle);
+            }
+
+         } 
+          
+          //Dans la methode onResume
+          mMagneticField = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+          sm.registerListener(this, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
+
+          //Dans la methode onStop
+          sm.unregisterListener(this, sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+      //Dans 
+    </code></pre>
+            </div>      
+        </li>
+    </ul>
+    <p>Code pour le Microphone</p>
+      <p>On recupere les valeurs pour permettre l'acceleration du lander</p>
+      <ul class="collapsible">
+        <li>
+            <div style="display: block;width: 800px;" class="collapsible-header">Montrer le code<i class="material-icons right">expand_more</i></div>
+            <div class="collapsible-body"> 
+    <pre><code class="language-java">
+      //Dans MainActivity.java
+
+          //Dans le methode onCreate
+          ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+          
+          //Dans la methode onRequestPermissionsResult
+          switch (requestCode) {
+            case 1: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Lander.mRecorder = new MediaRecorder();
+                    Lander.mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                    Lander.mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                    Lander.mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                    Lander.mRecorder.setOutputFile("/dev/null");
+                    try {
+                        Lander.mRecorder.prepare();
+                        Lander.mRecorder.start();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return;
+            }
+
+        }
+
+
+      //Dans 
+    </code></pre>
+            </div>      
+        </li>
+    </ul>
+      </section>
+
+      <div class="parallax-container">
+        <div class="parallax"><img src="image/pexels_francesco_ungar.jpg" width="1080"></div>
+      </div>
+
+      <section id="screenshot" class="scrollspy">
+        <h1>Source</h1>
+        <p>Pour le jeu: </p>
+        <p>Le images des planetes, du lander et du fond d"ecran:
+          <ul class="browser-default ">
+            <li><a href="https://www.flaticon.com/authors/freepik">Flaticon.com : Freepik</a></li>
+            <li><a href="https://www.pexels.com/fr-fr/photo/ciel-etoile-998641/">Fond d'écran : Photo de Francesco Ungaro provenant de Pexels</a></li>
+          </ul>
+        </p>
+
+        <p>La polices d'écriture
+          <ul class="browser-default ">
+            <li><a href="https://www.fontspace.com/a-astro-space-font-f46028">Astro Space</a></li>
+            <li><a href="https://www.fontspace.com/atari-classic-font-f30342">Atari Classic Font</a></li>
+          </ul>
+        </p>
+
+        <p>Utilisation de photoshop pour les boutons</p>
+        
+      </section>
+   
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <!--JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+     <!--Prism JS-->
+     <script src="js/prism.js"></script> 
+    <!--LOCAL-->          
+    <script src="js/main.js"></script>
+  </body>
+</html>
